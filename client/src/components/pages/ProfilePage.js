@@ -43,7 +43,7 @@ const Profile = (props) => {
                         .then((info) => {
                             console.log(info);
                             if (!info.message) {
-                                setPost({PostId: ''}); setPost({content: ''}); setPost({timestamp: ''});
+                                setPost({PostId: '', content: '', timestamp: ''});
                                 navigate("/profile", { state: { name: UserId, data: info } });
                             }
                         })
