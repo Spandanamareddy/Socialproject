@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
 
-const User = require('./user');
-
 const postSchema = new mongoose.Schema({
   UserId: { type: String, required: true},
   PostId: { type: String, required: true},
@@ -11,9 +9,7 @@ const postSchema = new mongoose.Schema({
 
 const Post = mongoose.model("Post", postSchema);
 
-async function newPost(UserId, content) {
-  const user = await User.getUser(UserId);
-  if(!user) throw Error('Please register to continue');
+async function newPost(UserId, PostId, content, timestamp) {
 
   const newPost = await Post.create({
     UserId: UserId,
@@ -26,7 +22,7 @@ async function newPost(UserId, content) {
 }
 
 async function viewPost(pid) {
-    return await Post.findOne({ "_id": pid});
+    return await Post.find({"UserId": pid});
 }
 
 async function updatePost(pid, newcontent) {

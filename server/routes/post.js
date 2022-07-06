@@ -14,7 +14,7 @@ router
 
   .post('/viewpost', async (req, res) => {
     try {
-      const post = await Post.viewPost(req.body.pid);
+      const post = await Post.viewPost(req.body.UserId);
       res.send({...post});
     } catch(error) {
       res.status(401).send({ message: error.message }); 
