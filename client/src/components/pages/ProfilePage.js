@@ -61,39 +61,6 @@ const Profile = (props) => {
 
     }
 
-    const deletePost = (e) => {
-        var pid = e.target.value;
-        var UserId = user.UserId;
-        console.log(e.target.value);
-        fetchData("/post/delete",
-          {
-            pid
-          },
-          "DELETE")
-          .then((data) => {
-            if (!data.message) {
-                console.log(data)
-                fetchData("/post/viewpost",
-                    {
-                        UserId
-                    },
-                    "POST")
-                    .then((info) => {
-                        console.log(info);
-                        if (!info.message) {
-                            navigate("/profile", { state: { name: UserId, data: info } });
-                        }
-                    })
-                    .catch((error) => {
-                        console.log(error)
-                    })
-            }
-          })
-          .catch((error) => {
-            console.log(error)
-          })
-      }
-
     let posts = [];
 
     for (let i = 0; i < Object.keys(location.state.data).length; i++) {
@@ -112,7 +79,6 @@ const Profile = (props) => {
                         <th scope="col">PostId</th>
                         <th scope="col">Content</th>
                         <th scope="col">Timestamp</th>
-                        <th scope="col">Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -121,7 +87,6 @@ const Profile = (props) => {
                             <th scope="row">{cont.PostId}</th>
                             <td>{cont.content}</td>
                             <td>{cont.timestamp}</td>
-                            <td><button className="btn btn-dark btn-left" id="delete-post" name="delete-post" value={cont._id} onClick={deletePost}>Delete</button></td>
                         </tr>
                     ))}
                 </tbody>
